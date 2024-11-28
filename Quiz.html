@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="script.js"></script>
+    <title>Eliza's programming quiz for beginners</title>
+    <style>
+       body {
+    font-family: 'Arial', sans-serif;  /* Ustawiamy czcionkę Arial jako domyślną */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #efb4dc;
+    margin: 0;
+}
+
+.quiz-container {
+    background-color: rgb(251, 245, 251);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 600px;
+}
+
+h1 {
+    margin-bottom: 20px;
+    font-weight: 700;  /* Grubsza czcionka dla nagłówka */
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #e151c77a;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #520e3f;
+}
+
+.hidden {
+    display: none;
+}
+
+.question {
+    margin-bottom: 15px;
+}
+
+.options input {
+    margin: 10px;
+}
+
+#result {
+    margin-top: 20px;
+    font-size: 20px;
+}
+    </style>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>Eliza's programming quiz for beginners</h1>
+        <div id="quiz">
+            <!-- Pytania i odpowiedzi będą generowane przez JS -->
+        </div>
+        <button id="submit-btn" onclick="submitQuiz()">Zakończ quiz</button>
+        <div id="result" class="hidden">
+            <h2>Twój wynik: <span id="score"></span></h2>
+        </div>
+    </div>
+    <script>
+        const questions = [
+    {
+        question: "Jak rozpocząć pisanie kodu w języku HTML?",
+        options: ["< !DOCTYPE html >", "< script >", "< style >", "< HTML >"],
+        answer: "< !DOCTYPE html >"
+    },
+    {
+        question: "Jakim kodem rozpocząć pisanie kodu w języku CSS?",
+        options: ["< !DOCTYPE html >", "< script >", "< style >", "< HTML >"],
+        answer: "< style >"
+    },
+    {
+        question: "W jakim języku programowania stosuje się słowo margin?",
+        options: ["JS", "CSS", "HTML", "we wszystkich trzech"],
+        answer: "CSS"
+    },
+    {
+        question: "W jakim języku programowania stosuje się słowo margin?",
+        options: ["JS", "CSS", "HTML", "we wszystkich trzech"],
+        answer: "CSS"
+    },
+    {
+        question: "W jakim języku programowania stosuje się słowo margin?",
+        options: ["JS", "CSS", "HTML", "we wszystkich trzech"],
+        answer: "CSS"
+    },
+    {
+        question: "W jakim języku programowania stosuje się słowo margin?",
+        options: ["JS", "CSS", "HTML", "we wszystkich trzech"],
+        answer: "CSS"
+    },
+    {
+        question: "W jakim języku programowania stosuje się słowo margin?",
+        options: ["JS", "CSS", "HTML", "we wszystkich trzech"],
+        answer: "CSS"
+    },
+    {
+        question: "W jakim języku programowania stosuje się słowo margin?",
+        options: ["JS", "CSS", "HTML", "we wszystkich trzech"],
+        answer: "CSS"
+    },
+    {
+        question: "W jakim języku programowania stosuje się słowo margin?",
+        options: ["JS", "CSS", "HTML", "we wszystkich trzech"],
+        answer: "CSS"
+    },
+    {
+        question: "W jakim języku programowania stosuje się słowo margin?",
+        options: ["JS", "CSS", "HTML", "we wszystkich trzech"],
+        answer: "CSS"
+    }
+];
+
+let currentQuestionIndex = 0;
+let score = 0;
+
+// Generowanie pytań i opcji
+function loadQuestion() {
+    const question = questions[currentQuestionIndex];
+    const quizContainer = document.getElementById('quiz');
+
+    // Generowanie pytania
+    const questionElem = document.createElement('div');
+    questionElem.classList.add('question');
+    questionElem.innerHTML = `<h2>${question.question}</h2>`;
+
+    // Generowanie opcji
+    const optionsElem = document.createElement('div');
+    optionsElem.classList.add('options');
+
+    question.options.forEach((option, index) => {
+        const optionElem = document.createElement('label');
+        optionElem.innerHTML = `
+            <input type="radio" name="question" value="${option}">
+            ${option}
+        `;
+        optionsElem.appendChild(optionElem);
+    });
+
+    questionElem.appendChild(optionsElem);
+    quizContainer.appendChild(questionElem);
+}
+
+// Sprawdzanie odpowiedzi i przejście do następnego pytania
+function submitQuiz() {
+    const selectedOption = document.querySelector('input[name="question"]:checked');
+
+    if (selectedOption) {
+        const selectedAnswer = selectedOption.value;
+        if (selectedAnswer === questions[currentQuestionIndex].answer) {
+            score++;
+        }
+    }
+
+    currentQuestionIndex++;
+
+    // Sprawdzanie, czy są jeszcze pytania
+    if (currentQuestionIndex < questions.length) {
+        document.getElementById('quiz').innerHTML = ''; // Czyszczenie poprzednich pytań
+        loadQuestion(); // Załadowanie następnego pytania
+    } else {
+        document.getElementById('quiz').innerHTML = ''; // Usunięcie pytań
+        showResult(); // Wyświetlenie wyniku
+    }
+}
+
+// Wyświetlanie wyniku
+function showResult() {
+    const resultElem = document.getElementById('result');
+    const scoreElem = document.getElementById('score');
+    scoreElem.textContent = `${score} / ${questions.length}`;
+    resultElem.classList.remove('hidden');
+}
+
+// Ładowanie pierwszego pytania
+loadQuestion();
+    </script>
+</body>
+</html>
